@@ -4,18 +4,8 @@ module Headjack
 
     def self.auto_filter result
       results = result["results"].first
-
       if results
-        if results["columns"]
-          
-          data = results["data"]
-
-          if results["columns"].count == 1
-            data.map{|row| row["row"] && parse_column(row["row"].first)}
-          else
-            data.map{|row| row["row"] && row["row"].map{|c| parse_column(c)}}
-          end
-        end
+        expand_one_column_data(results["columns"], results["data"])        
       else
         raise SyntaxError.new(result["errors"].first["message"])
       end
@@ -46,6 +36,14 @@ module Headjack
     end
 
     private
+
+    def self.expand_one_column_data columns, data
+      if columns.count == 1
+        data.map{|row| row["row"] && parse_column(row["row"].first)}
+      else
+        data.map{|row| row["row"] && row["row"].map{|c| parse_column(c)}}
+      end
+    end
 
     @@resultDataContents = {
       "graph_filter" => ["graph"],
