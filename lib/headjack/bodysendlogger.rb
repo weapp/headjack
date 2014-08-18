@@ -2,6 +2,7 @@ require 'faraday_middleware'
 require "multi_json"
 require 'forwardable'
 
+#:nocov:
 module Headjack
   class Bodysendlogger < Faraday::Response::Middleware
     extend Forwardable
@@ -24,3 +25,4 @@ module Headjack
 
   end
 end
+#:nocov:
