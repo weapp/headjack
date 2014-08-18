@@ -7,11 +7,14 @@ module Headjack
   class Connection
     def initialize opts={}, &block
       default_opts = {url:"http://localhost:7474"}.merge(opts)
+      bodylog = default_opts.delete(:bodylog)
+      bodysendlog = default_opts.delete(:bodysendlog)
+      bodyreslog = default_opts.delete(:bodyreslog)
       @conn = Faraday.new(default_opts) do |conn|
-        conn.use Faraday::Response::Bodysendlogger if opts[:bodylog] || opts[:bodysendlog]
+        conn.use Headjack::Bodysendlogger if bodylog || bodysendlog
         conn.request :json
         conn.response :json
-        conn.use Faraday::Response::Bodyreslogger if opts[:bodylog] || opts[:bodyreslog]
+        conn.use Headjack::Bodyreslogger if bodylog || bodyreslog
 
         conn.adapter Faraday.default_adapter
 
