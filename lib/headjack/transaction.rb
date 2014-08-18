@@ -7,7 +7,8 @@ module Headjack
       if results
         expand_one_column_data(results["columns"], results["data"])        
       else
-        raise SyntaxError.new(result["errors"].first["message"])
+        error = result["errors"].first
+        raise parse_error(error["code"]).new(error["message"])
       end
     end
 
@@ -87,6 +88,17 @@ module Headjack
         {statements: [payload]}
       else
         payload
+      end
+    end
+
+    def self.parse_error error
+      case error
+      when "Neo.ClientError.Statement.ParameterMissing"
+        ArgumentError
+      when "Neo.DatabaseError.Statement.ExecutionFailure"
+        RuntimeError
+      else
+        SyntaxError
       end
     end
 
