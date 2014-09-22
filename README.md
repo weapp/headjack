@@ -23,7 +23,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
+### Create connection
+
+    conn = Headjack::Connection.new
+
+### Querying to cypher endpoint
+
+    conn.cypher(query: "MATCH (n:Label) RETURN n LIMIT 25")
+    conn.call(query: "MATCH (n:Label) RETURN n LIMIT 25", mode: :cypher)
+
+### Querying to transaction endpoint (prefered)
+
+    conn.transaction(query: "MATCH (n:Label) RETURN n LIMIT 25")
+    conn.call(query: "MATCH (n:Label) RETURN n LIMIT 25")
+    conn.(query: "MATCH (n:Label) RETURN n LIMIT 25")
+
+### Filters
+
+    conn.call(query: "MATCH (n:Label) RETURN n LIMIT 25", filter: :all)
+    conn.call(query: 'CREATE (Neo:Crew {name:"Neo"}), (Morpheus:Crew {name: "Morpheus"}), (Trinity:Crew {name: "Trinity"}), (Neo)-[:KNOWS]->(Morpheus), (Neo)-[:LOVES]->(Trinity), (Morpheus)-[:KNOWS]->(Trinity)', filter: :all)
+    conn.call(query: 'CREATE (n:Label {name:"Hello World"}) RETURN n', filter: :stats)
+    conn.call(query: "MATCH (n:Crew)-[r]->() RETURN n, r LIMIT 25", filter: :graph)
+    conn.call(query: "MATCH (n:Crew)-[r]->() RETURN n, r LIMIT 25", filter: :relationships)
 
 ## Contributing
 
