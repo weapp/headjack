@@ -17,11 +17,11 @@ module Headjack
     end
 
     def self.graph_filter result
-      result["results"].first["data"].map{|result| result["graph"]}
+      result["results"].first["data"].map{|res| res["graph"]}
     end
 
     def self.relationships_filter(result)
-      graph_filter(result).map{|result| result["relationships"]}.flatten
+      graph_filter(result).map{|res| res["relationships"]}.flatten
     end
 
     def self.relationship_filter(result)
@@ -29,7 +29,7 @@ module Headjack
     end
 
     def self.nodes_filter(result)
-      graph_filter(result).map{|result| result["nodes"]}.flatten
+      graph_filter(result).map{|res| res["nodes"]}.flatten
     end
 
     def self.node_filter(result)

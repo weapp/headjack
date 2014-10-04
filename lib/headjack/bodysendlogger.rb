@@ -18,7 +18,7 @@ module Headjack
     def_delegators :@logger, :debug, :info, :warn, :error, :fatal
 
     def call(env)
-      info "#{env.method} #{env.url.to_s}"
+      info "#{env.method} #{env.url}"
       debug "\n\n#{MultiJson.dump(env.body, :pretty => true)}\n\n"
       super
     end

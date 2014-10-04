@@ -15,7 +15,7 @@ module Headjack
         send(filter, res)
       end
 
-      def parse_payload payload, opts={}
+      def parse_payload payload, _opts={}
         payload
       end
 

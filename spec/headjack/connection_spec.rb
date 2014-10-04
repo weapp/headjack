@@ -49,7 +49,7 @@ module Headjack
     end
 
     describe "#transaction" do
-      let (:dummy_results){ [ {"columns"=>["true"], "data"=>[{"row"=>[true]}]} ] }
+      let(:dummy_results){ [ {"columns"=>["true"], "data"=>[{"row"=>[true]}]} ] }
 
       it {
         expect(subject.transaction(statements: [statement: q1])).to eq [true]
