@@ -5,7 +5,7 @@ module Headjack
     def self.auto_filter result
       results = result["results"].first
       if results
-        expand_one_column_data(results["columns"], results["data"])        
+        expand_one_column_data(results["columns"], results["data"])
       else
         error = result["errors"].first
         raise parse_error(error["code"]).new(error["message"])
