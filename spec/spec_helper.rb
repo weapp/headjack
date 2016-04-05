@@ -1,6 +1,9 @@
 require 'coveralls'
 Coveralls.wear!
 
+require 'knapsack'
+Knapsack::Adapters::RSpecAdapter.bind
+
 require 'headjack'
 
 RSpec.configure do |config|
@@ -24,5 +27,5 @@ end
 
 def tr_row c: [], r: []
   r = r.map{ |row| {"row" => row} }
-  {"results" => [ {"columns" => c, "data" => r} ] } 
+  {"results" => [ {"columns" => c, "data" => r} ] }
 end
