@@ -13,3 +13,6 @@ end
 
 desc "Run Tests"
 task :default => :spec
+
+require 'knapsack'
+Knapsack.load_tasks if defined?(Knapsack)
